@@ -1,0 +1,374 @@
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main_Super.master.cs" Inherits="SuperMain" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
+    <title>Skorkel</title>
+
+    <%--<link href="<%=ResolveUrl("Styles/jquery.autocomplete.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Styles/style.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Styles/MyStyle.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("css/ddsmoothmenu.css")%>"rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Styles/jquery.autocomplete.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("css/stylever-2.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("docsupport/prism.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("docsupport/chosen.min.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Styles/jquery.Jcrop.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Jsscroll/jquery.mCustomScrollbar.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("Styles/jquery.datepick.css")%>" rel="stylesheet" type="text/css" />
+    <link href="<%=ResolveUrl("css/jquery.css")%>" rel="stylesheet" type="text/css" />
+    <link rel='stylesheet' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css' type='text/css' media='all' />--%>
+    <%--<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery-1.8.2.min.js")%>"></script>
+    <script type="text/javascript" language="javascript" src="<%=ResolveUrl("js/jquery-ui.js")%>" ></script>--%>
+    <%--<link href="<%=ResolveUrl("css/ddsmoothmenu.css")%>"rel="stylesheet" type="text/css" />--%>
+    <%--<link href="<%=ResolveUrl("css/stylever-2.css")%>" rel="stylesheet" type="text/css" />--%>
+
+    <script src="js/jquery.1.12.4.min.js"></script>
+    <script type="text/javascript" lang="javascript" src="<%=ResolveUrl("js/jquery.carouFredSel-6.2.1-packed.js")%>"></script>
+    <script type="text/javascript" lang="javascript" src="<%=ResolveUrl("js/PopupCenter.js")%>"></script>
+
+    <link rel="shortcut icon" type="image/png" href="images/skorkel-fav-icon.png" />
+     <link href='https://fonts.googleapis.com/css?family=Quicksand:400,700,400italic' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-reboot.css" rel="stylesheet">
+    <link href="css/bootstrap-grid.css" rel="stylesheet">
+    <link href="css/font-icon.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <asp:ContentPlaceHolder ID="headMain" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body id="bodyelement" runat="server" clientidmode="static">
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="scriptmgr" runat="server" EnablePageMethods="true" EnablePartialRendering="true">
+        </asp:ScriptManager>
+        <div class="wrapper clearfix">
+            <!--header starts-->
+            <header>
+                <a href="#" class="m-view mobile-close">
+                 <div class="toggle">
+                  <span></span>
+                 </div>
+                </a>
+                <%--<a href="Home.aspx" class="logo">--%>
+                <a class="super-admin-logo"><img src="images/logo.png" alt="" /></a>
+                <nav>
+                 <ul class="nav-list">                            
+                  <li id="Li_Journal" runat="server"><a href="SA_JournalListing.aspx">
+                   <span class="flex-align-center"><img src="images/newspaper-white.svg" alt="" class="">Journals</span></a>
+                  </li>
+                  <li id="Li_News" runat="server"><a href="SA_NewsListing.aspx">
+                   <span class="flex-align-center"><span class="lnr mr-2 lnr-bullhorn"></span>News</span></a>
+                  </li>
+                  <li id="Li_Jobs" runat="server"><a href="SA_JobsListing.aspx">
+                   <span class="flex-align-center"><img src="images/recruitment.svg" alt="" class="mr-2 job-icon" />Jobs</span></a>
+                  </li>
+                  <li id="Li_Noti" runat="server"><a href="SA_Notification.aspx">
+                   <span class="flex-align-center"><span class="lnr mr-2 lnr-alarm"></span>Notifications</span></a>
+                  </li>
+                   <li id="Li_SubDoc" runat="server"><a href="SA_SubDocs.aspx">
+                   <span class="flex-align-center"> <img src="images/newspaper-white.svg" alt="" class="">User documents</span></a>
+                  </li>
+                  <li id="Li1" runat="server"><a href="CSVFileUploader.aspx">
+                   <span class="flex-align-center"> <img src="images/csv.svg" class="mr-2 csv-icon" alt="CSV">CSV Uploader</span></a>
+                  </li>
+                 </ul>
+                </nav>
+
+                <div id="globalLoader" class="">
+                 <div class="loader-cover">
+                  <div class="lds-ellipsis">
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                   <div></div>
+                  </div>
+                 </div>
+                </div>
+
+                <!------------------------ Modal start here  ------------------------->
+                <div id="successPopupModal" class="modal backgroundoverlay show" role="dialog" aria-labelledby="confirmationTitle">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 id="successPopupTitle" class="modal-title">Confirmation</h5>
+                            </div>
+                            <div class="modal-body">
+                                <span id="successPopupMsg">friend ?</span>
+                            </div>
+                            <div class="border-top-0 text-right padding-15">
+                                <a class="btn btn-primary add-scroller" onclick="hideSuccessPopup();" data-dismiss="modal" href="#">Ok</a>
+                            </div>
+                        </div>
+                        <!-- modal-content ended -->
+                    </div>
+                </div>
+                <!------------------------ Modal Ended here  ------------------------->
+            </header>
+
+             <!---Sucess Popup  on delete post-->
+              <div class="modal backgroundoverlay" id="post-delete" style="display:none;">
+                  <div class="modal-dialog modal-dialog-centered">
+                 
+                          <div  class="w-100" >
+                              <div class="modal-content">
+                       
+                                  <div class="modal-header">
+                                      <h5 class="modal-title">Success
+                                      </h5>
+                                  </div>
+                                  <div class="modal-body">
+                                      Successfully deleted.
+                                  </div>
+                                  <div class="modal-footer border-top-0">
+                                      <asp:LinkButton class="btn btn-primary add-scroller remove-popup"> Ok </asp:LinkButton>
+                                  </div>
+                              </div>
+                          </div>
+             
+                  </div>
+              </div>
+            <!--header ends-->
+
+            <div class="header-black-layer"></div>
+
+            <div class="inner-header clearfix ">
+             <div class="toggle"><span></span></div>
+             
+             <ol class="breadcrumb inner-header-nav">
+
+              <li id="mdlBreadCrum1" runat="server" class="breadcrumb-item">
+               <asp:Label ID="lblBread1" runat="server" />
+              </li>
+              <li id="mdlBreadCrum2" runat="server" class="breadcrumb-item">
+               <asp:Label ID="lblDashBoardMiddle2" runat="server" />
+              </li>
+              <li id="liDashboard" class="breadcrumb-item active">
+               <asp:Label ID="lblDashBoardName" runat="server" />
+              </li>
+             </ol>
+
+             <ul class="list-inline inner-header-right">
+
+              <asp:HiddenField ID="hdnEmailId" ClientIDMode="Static" runat="server" />
+              <li class="list-inline-item user-profile">
+               <a href="#" class="headerDropDown">
+                <img id="imgProfilePic" runat="server" src="profile-photo.png" alt="" class="header-avatar rounded-circle" />
+                <span class="avatar-text">
+                 <label runat="server" id="lblUserName"></label>
+                </span><span class="lnr lnr-chevron-down avatar-dropdown"></span>
+               </a>
+               <div class="collapse-able" id="collapseExample">
+                <ul>                                
+                 <li>
+                  <asp:LinkButton ID="lnkSignOut" OnClientClick="javascript:lnkSignOut_Click();return false;" runat="server">Logout</asp:LinkButton>
+                  <asp:Button ID="btnSignOut" OnClick="lnkSignOut_Click" ClientIDMode="Static" Style="display: none;" runat="server" />
+                 </li>
+                </ul>
+               </div>
+              </li>
+             </ul>
+            </div>
+            <!-- inner-header ended -->
+
+            <div class="main-section">
+     <div class="render-section">
+                    
+      <label runat="server" id="lblmaster" visible="false">
+      </label>
+                    
+      <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+      </asp:ContentPlaceHolder>
+     </div>
+     <!-- render-sectiona ended -->
+     <div class="inner-footer">                   
+      <ul class="list-inline footer-nav">
+       <li class="list-inline-item"><a href="AboutUs.aspx">About us</a></li>
+       <li class="list-inline-item"><a href="PrivacyPolicy.aspx">Privacy policy</a></li>
+       <li class="list-inline-item"><a href="TermsAndConditions.aspx">Terms of services</a></li>
+       <li class="list-inline-item"><a href="http://goo.gl/forms/rvlKhZCAPJY2d2t73">Contact us</a></li>
+      </ul>
+      
+      <ul class="list-inline footer-social">
+       <li class="list-inline-item">
+        <a href="#">
+        <img src="images/Facebook_White.png" alt=""></a>
+       </li>
+       <li class="list-inline-item">
+        <a href="#">
+        <img src="images/LinkedIN_White.png" alt=""></a>
+       </li>
+       <li class="list-inline-item">
+        <a href="#">
+        <img src="images/Twitter_White.png" alt=""></a>
+       </li>
+      </ul>
+     </div>
+     <asp:HiddenField ID="hdnTotalSearchCount" runat="server" ClientIDMode="Static" />
+     <asp:HiddenField ID="HiddenField1" runat="server" ClientIDMode="Static" />
+     <%--sp:HiddenField ID="hdnEmailId" runat="server" ClientIDMode="Static" />--%>
+     <asp:HiddenField ID="hdnTotalItem" runat="server" ClientIDMode="Static" />
+     <asp:HiddenField ID="hdnCurrentPage" runat="server" ClientIDMode="Static" Value="1" />
+     <asp:HiddenField ID="hdnNotificationcount" runat="server" ClientIDMode="Static" />
+     </div>
+     </div>
+    </form>
+    <%--<script type="text/javascript">
+        var jQuery_1_12_4 = $.noConflict(true);
+    </script>--%>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/typehead.js"></script>
+    <script type="text/javascript" src="js/custom.js"></script>
+    <script type="text/javascript">
+    deleteSuccess();
+        if ($(window).width() <= 767) {
+            $('.menulink').click(function () {
+                $('.header_right_menu').slideToggle('slow');
+                $('.navigationInner').slideUp('slow');
+                $('#homeId').slideUp('slow');
+            })
+            $('.header_right_menu').click(function () {
+                $('.menu_sub_menu').slideDown('slow');
+                $('.navigationInner').slideUp('slow');
+                $('#homeId').slideUp('slow');
+            });
+        }
+    </script>
+    <%--Newly Added pop-up JS--%>
+    <script type="text/javascript">
+        function showSuccessPopup(title, msg) {
+            $('#successPopupTitle').text(title);
+            $("#successPopupMsg").text(msg);
+            $("#successPopupModal").show();
+        }
+        function hideSuccessPopup() {
+            $("#successPopupModal").hide();
+        }
+    </script>
+    <script type="text/javascript">
+
+        function Open(URL) {
+            window.location = URL;
+        }
+        function CallUserMethod() {
+            document.getElementById('btnAccept').click();
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //debugger;
+            if ($("#lblNotifyCount").text() == '0') {
+                document.getElementById("divNotification1").style.display = "none";
+            }
+            if ($("#lblInboxCount").text() == '0') {
+                document.getElementById("divInbox").style.display = "none";
+            } else {
+
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var v = "";
+            $("#txtSearch").keydown(function (e) {
+                if (e.keyCode == 38 || e.keyCode == 40) {
+                    if ($('.ulclick').find('.ac_over1').val() == '') {
+                        v = $('.ac_over1').find('.ac_over').attr('href');
+                    }
+                }
+                if (e.keyCode == 13) {
+                    if (v != "") {
+                        window.location = v;
+                    }
+                    else {
+                        if ($('.ac_over').attr('href') != undefined) {
+                            if ($('.ac_over').attr('href') != '#') {
+                                window.location = $('.ac_over').attr('href');
+                            } else { return false; }
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                }
+            });
+            $('#nav-icon1').click(function () {
+                $(this).toggleClass('open');
+                $('.mobile_m').slideToggle('slow');
+                $('#homeId').slideUp('slow');
+            });
+        });
+        function lnkSignOut_Click() {
+            document.getElementById("btnSignOut").click();
+        }
+    </script>
+    <script type="text/javascript">
+        function AddNotificationCount() {
+            var result = '';
+            var NotificationId = document.getElementById("hdnNotificationcount").value;
+            $.ajax({
+                url: "handler/NotificationCount.ashx?NotificationId=" + NotificationId,
+                dataType: "html",
+                data: { method: 'ProcessRequest', args: { context: NotificationId } },
+                success: function (data) {
+                    if (data == 1) {
+                        document.getElementById("lblNotifyCount").style.display = "none";
+                        document.getElementById("divNotification1").style.display = "none";
+                    }
+                    else {
+                        document.getElementById("lblNotifyCount").style.display = "none";
+                        document.getElementById("divNotification1").style.display = "none";
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function () {
+            $('#notificationBell').click(function (event) {
+                event.stopPropagation();
+                var callAddNot = false;
+                if ($("#dvNotification").is(":hidden")) {
+                    callAddNot = true;
+
+                }
+                $("#dvNotification").slideToggle("fast");
+                if (callAddNot) {
+                    AddNotificationCount();
+                }
+            });
+            $("#dvNotification").on("click", function (event) {
+                event.stopPropagation();
+            });
+          var prm = Sys.WebForms.PageRequestManager.getInstance();
+             prm.add_endRequest(function () {
+              deleteSuccess();
+             });
+           });
+
+        $(document).on("click", function () {
+            $("#dvNotification").hide();
+        });
+    </script>
+    <script type="text/javascript">
+
+        function showLoader1() {
+            $("#globalLoader").show();
+        }
+
+        function hideLoader1() {
+            $("#globalLoader").hide();
+        }
+
+    </script>
+</body>
+</html>

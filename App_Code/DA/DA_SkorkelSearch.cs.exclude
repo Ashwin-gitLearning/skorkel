@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using SqlConn;
+
+/// <summary>
+/// Summary description for DA_Login
+/// </summary>
+/// 
+namespace DA_SKORKEL
+{
+    public class DA_SkorkelSearch
+    {
+        private SqlCommand cmd;
+        //private SqlCommand cmd;
+        public enum Login_1
+        {
+            UserLogin = 1, SelectForUser = 2, InternalUser=3,UserDetails=4
+        };
+
+        public DA_SkorkelSearch()
+        {
+            //
+            // TODO: Add constructor logic here
+            //
+        }
+       
+        public DataTable GetSkorkelSearchData(string prefixText)
+        {
+            DataTable dt = new DataTable();
+            SqlConnection conn = new SqlConnection();
+            SQLManager co = new SQLManager();
+            int CTId = 0;
+            if (Session["SessionSearchCTId"] != null)
+            {
+                CTId = Convert.ToInt32(Session["SessionSearchCTId"]);
+            }
+            else
+            {
+                CTId = 0;
+            }
+            conn = co.GetConnection();
+            SqlDataAdapter da = new SqlDataAdapter();
+
+            da.SelectCommand = new SqlCommand("Scrl_SkorkelSearch", conn);
+            da.SelectCommand.CommandType = CommandType.StoredProcedure;
+            da.SelectCommand.Parameters.Add("@SearchTitle", SqlDbType.VarChar, 200).Value = prefixText;
+            da.SelectCommand.Parameters.Add("@ContentTypeID", SqlDbType.Int).Value = CTId;
+            da.Fill(dt);
+            return dt;
+        }
+       
+
+
+    }
+}

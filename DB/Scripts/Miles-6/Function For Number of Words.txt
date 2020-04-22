@@ -1,0 +1,15 @@
+Alter Function dbo.TextLength(@Text  varchar(max)) 
+returns int 
+as  
+begin
+declare @textlenght  as int
+set @Text=ltrim(rtrim(@Text))
+		while charindex('  ',@Text) >0
+		Begin
+			set @Text=replace(@Text,'  ',' ')
+		end
+
+		set @textlenght= (select len(@Text)-len(replace(@Text,' ',''))+1)
+		
+		return @textlenght
+end

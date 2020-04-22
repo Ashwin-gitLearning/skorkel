@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Skorkel</title>
+    <!---Embed CSS-->
+    <style>
+
+        /*Fonts*/
+        /* vietnamese */
+        @font-face {
+          font-family: 'AvenirNext LT Pro Regular';
+          font-weight: 400;
+          src: url("/fonts/aviner/AvenirNextLTPro-Regular.otf");
+          src: url("/fonts/aviner/AvenirNextLTPro-Regular.eot") format("embedded-opentype"), url("/fonts/aviner/AvenirNextLTPro-Regular.woff") format("woff"), url("/fonts/aviner/AvenirNextLTPro-Regular.ttf") format("truetype"), url("/fonts/aviner/AvenirNextLTPro-Regular.svg") format("svg");
+        }
+        @font-face {
+          font-family: 'AvenirNext LT Pro Medium';
+          font-weight: 500;
+          src: url("/fonts/aviner/AvenirNextLTPro-MediumIt.otf");
+          src: url("/fonts/aviner/AvenirNextLTPro-MediumIt.eot") format("embedded-opentype"), url("/fonts/aviner/AvenirNextLTPro-Bold.woff") format("woff"), url("/fonts/aviner/AvenirNextLTPro-MediumIt.ttf") format("truetype"), url("/fonts/aviner/AvenirNextLTPro-MediumIt.svg") format("svg");
+        }
+        @font-face {
+          font-family: 'AvenirNext LT Pro Bold';
+          font-weight: 700;
+          src: url("/fonts/aviner/AvenirNextLTPro-Bold.otf");
+          src: url("/fonts/aviner/AvenirNextLTPro-Bold.eot") format("embedded-opentype"), url("/fonts/aviner/AvenirNextLTPro-Bold.woff") format("woff"), url("/fonts/aviner/AvenirNextLTPro-Bold.ttf") format("truetype"), url("/fonts/aviner/AvenirNextLTPro-Bold.svg") format("svg");
+        }
+        /*CSS*/
+        body {
+            background: #eFF5F6;
+            padding: 0px;
+            margin: 0px;
+            font-family: 'AvenirNext LT Pro Regular', Ubuntu, Verdana, Arial, sans-serif !important;
+            font-size: 14px;
+        }
+        body, td, input, textarea, select{
+            font-family: 'AvenirNext LT Pro Regular', Ubuntu, Verdana, Arial, sans-serif !important;
+        }
+         .parent-table{
+             width: 90%;
+          }
+          .child-table{
+            width:94%;
+          }
+        @media only screen and (max-width: 2100px) {
+          .parent-table{
+             width: 60%;
+          }
+          .child-table{
+            width: 94%;
+          }
+        }
+    </style>
+
+</head>
+<body>
+    <table style="background: #eFF5F6; width: 100%;">
+        <tbody>
+            <tr>
+                <td>
+                    <table class="parent-table" style="margin:0 auto; font-family: 'Quicksand', Ubuntu, Verdana, Arial, sans-serif;">
+                        <tbody>
+                            <!---Header Section-->
+                            <tr style="background: #00B6BC;">
+                                <td>
+                                    <table class="child-table" style="margin: 0px 20px 0px 20px;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="height: 5px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td><img src="http://dev.skorkel.com/images/logo.png" alt="Skorkel"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 2px;"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <!---Body Sections-->
+                            <tr style="background: #ffffff;">
+                                <td>
+                                    <table class="child-table" style="margin: 0px 20px 0px 20px;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="height: 15px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="font-weight: bold; font-size: 16px; color: #373A36;  font-family: 'Quicksand', Ubuntu, Verdana, Arial, sans-serif;">
+                                                    Dear {UserName},
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 5px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="color: #373A36; font-size: 14px;  font-family: 'Quicksand', Ubuntu, Verdana, Arial, sans-serif;">
+                                                    <!--You have a friend request sent by <a href="" style="font-weight: bold; font-size: 16px; color: #373A36; text-decoration: underline;">Sumit Mehta</a>-->
+                                                    {Content} 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 20px;"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+
+                            <!---Footer Sections-->
+                            <tr>
+                                <td>
+                                    <table class="footer-m child-table"  style="margin:0 auto;">
+                                        <tbody>
+                                            <tr>
+                                                <td style="height: 5px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <div style="width:80px;display: inline-block;">
+                                                    <a href="{RedirectURL}/AboutUs.aspx" style="color: #01B7BD; text-decoration: none; font-family: 'Quicksand', Ubuntu, Verdana, Arial, sans-serif;">About Us</a>
+                                                </div>
+                                                <div style="width:143px;display: inline-block;">
+                                                    <a href="{RedirectURL}/TermsAndConditions.aspx" style="color: #01B7BD; text-decoration: none; font-family: 'Quicksand', Ubuntu, Verdana, Arial, sans-serif;">Terms & Conditions</a>
+                                                </div>
+                                                <div style="width: 64px;display: inline-block;">
+                                                    <a href="{RedirectURL}/PrivacyPolicy.aspx" style="color: #01B7BD; text-decoration: none; font-family: 'Quicksand', Ubuntu, Verdana, Arial, sans-serif;">Privacy</a>
+                                                </div>
+                                                <div style="color:#5e635c;text-align:right;width: 75px;display: inline-block; font-family: 'Quicksand', Ubuntu, Verdana, Arial, sans-serif;"> © Skorkel</div>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 5px;"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4" style="font-size: 12px; color: #5E635C; text-align: center; font-family: 'Quicksand', Ubuntu, Verdana, Arial, sans-serif;">
+                                                    <em>*This is a system generated Email. Kindly do not reply.*</em>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        <tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

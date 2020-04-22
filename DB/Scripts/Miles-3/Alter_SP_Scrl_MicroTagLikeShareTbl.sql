@@ -1,0 +1,224 @@
+  
+Alter  PROCEDURE [dbo].[SP_Scrl_MicroTagLikeShareTbl]  
+@PageSize INT = NULL,  
+@Currentpage INT = NULL,  
+@FlagNo AS INT=NULL,  
+@intMicroLikeShareId INT=NULL,  
+@strRepLiShStatus VARCHAR(3) = NULL,  
+@intDocId INT = NULL,  
+@intRegistrationId INT=NULL,  
+@intAddedBy INT = NULL,  
+@strIpAddress VARCHAR(20) = NULL,  
+@strInviteeShare VARCHAR(100) = NULL,  
+@strLink VARCHAR(100) = NULL,  
+@strMessage VARCHAR(200) = NULL,  
+@intFavouriteId INT=NULL,  
+@strCaseTitle VARCHAR(150) = NULL,  
+@strDescription VARCHAR(150) = NULL,  
+@Author VARCHAR(500) = NULL,  
+@Publisher VARCHAR(500) = NULL,  
+@dtDate VARCHAR(50) = NULL  
+  
+AS  
+BEGIN  
+  DECLARE @UpperBand INT, @LowerBand INT  
+  SET @LowerBand  = (@CurrentPage - 1) * @PageSize  
+  SET @UpperBand  = (@CurrentPage * @PageSize) + 1  
+  
+ IF @FlagNo=1  
+ BEGIN  
+ IF NOT EXISTS (SELECT * FROM Scrl_MicrolTagLikeShareTbl WHERE intDocId=@intDocId AND  strRepLiShStatus='LI' AND intRegistrationId=@intRegistrationId)  
+    BEGIN  
+ IF EXISTS (SELECT 1 FROM Scrl_MicrolTagLikeShareTbl WHERE intDocId=@intDocId AND  strRepLiShStatus='ULI' AND intRegistrationId=@intRegistrationId)   
+ BEGIN  
+ UPDATE Scrl_MicrolTagLikeShareTbl SET  
+ strRepLiShStatus='LI'  
+  WHERE intDocId=@intDocId AND  strRepLiShStatus='ULI' AND intRegistrationId=@intRegistrationId  
+  SELECT @intDocId;  
+ END  
+ ELSE  
+ BEGIN  
+  INSERT INTO Scrl_MicrolTagLikeShareTbl(strRepLiShStatus,intDocId,intRegistrationId,dtAddedOn,intAddedBy,strIpAddress)VALUES(@strRepLiShStatus,@intDocId,@intRegistrationId,GETDATE(),@intAddedBy,@strIpAddress)  
+   DECLARE @inNewtMicroLikeShareId INT  
+   SET @inNewtMicroLikeShareId = @@IDENTITY;   
+   SELECT @inNewtMicroLikeShareId;  
+   END  
+    END ELSE  
+ BEGIN  
+ UPDATE Scrl_MicrolTagLikeShareTbl SET  
+ strRepLiShStatus='ULI'  
+  WHERE intDocId=@intDocId AND  strRepLiShStatus='LI' AND intRegistrationId=@intRegistrationId  
+  SELECT @intDocId;  
+ END  
+END  
+ELSE IF @FlagNo=2  
+ BEGIN  
+ SELECT COUNT(intMicroLikeShareId)TotalLike ,  
+ (select intAddedBy from Scrl_MicrolTagLikeShareTbl WHERE intDocId=@intDocId AND strRepLiShStatus='LI' AND intAddedBy=@intAddedBy)LikeUserId  
+ from Scrl_MicrolTagLikeShareTbl WHERE intDocId=@intDocId AND strRepLiShStatus='LI'  
+ END  
+ ELSE IF @FlagNo=3  
+ BEGIN  
+  INSERT INTO Scrl_MicrolTagLikeShareTbl(strRepLiShStatus,intDocId,strInviteeShare,intRegistrationId,dtAddedOn,intAddedBy,strIpAddress,strLink,strMessage)  
+  VALUES(@strRepLiShStatus,@intDocId,@strInviteeShare,@intRegistrationId,GETDATE(),@intAddedBy,@strIpAddress,@strLink,@strMessage)  
+  SET @intMicroLikeShareId = @@IDENTITY;   
+   SELECT @intMicroLikeShareId;  
+ END  
+ ELSE IF @FlagNo=4  
+ BEGIN  
+ SELECT COUNT(intMicroLikeShareId)TotalShare from Scrl_MicrolTagLikeShareTbl WHERE intDocId=@intDocId AND strRepLiShStatus='SH'  
+ END  
+  ELSE IF @FlagNo=5  
+ BEGIN  
+ DECLARE  @TotalStudent INT,@TotalProfessional INT,@TotalJudge INT,@TotalOrganization INT  
+  
+ SELECT @TotalStudent=COUNT(DISTINCT(intAddedby))  FROM Scrl_RecentActivityMasterTbl WHERE intContentId=@intDocId AND intUserTypeId=1  
+ SELECT @TotalProfessional= COUNT(DISTINCT(intAddedby)) FROM Scrl_RecentActivityMasterTbl WHERE intContentId=@intDocId AND intUserTypeId=2 OR intUserTypeId=4  
+ SELECT @TotalJudge=COUNT(DISTINCT(intAddedby)) FROM Scrl_RecentActivityMasterTbl WHERE intContentId=@intDocId AND intUserTypeId=5  
+ SELECT @TotalOrganization=COUNT(DISTINCT(intAddedby))  FROM Scrl_RecentActivityMasterTbl WHERE intContentId=@intDocId AND intUserTypeId=7 OR intUserTypeId=3  
+  
+ SELECT @TotalStudent TotalStudent,@TotalProfessional TotalProfessional,@TotalJudge TotalJudge ,@TotalOrganization TotalOrganization  
+ END  
+  
+ ELSE IF @FlagNo=6  
+ BEGIN  
+  DECLARE @inNewtDownloadId INT  
+ IF NOT EXISTS (SELECT 1 FROM Scrl_MicrolTagLikeShareTbl WHERE intDocId=@intDocId AND  strRepLiShStatus='FDL' AND intRegistrationId=@intRegistrationId)  
+  BEGIN  
+   INSERT INTO Scrl_MicrolTagLikeShareTbl(strRepLiShStatus,intDocId,intRegistrationId,dtAddedOn,intAddedBy,strIpAddress)VALUES(@strRepLiShStatus,@intDocId,@intRegistrationId,GETDATE(),@intAddedBy,@strIpAddress)  
+     
+   SET @inNewtMicroLikeShareId = @@IDENTITY;   
+   SELECT @inNewtMicroLikeShareId;  
+  END  
+ ELSE  
+  BEGIN  
+  SET @inNewtMicroLikeShareId = 0;   
+   SELECT @inNewtMicroLikeShareId;  
+  END  
+ END  
+  
+ ELSE IF @FlagNo=7  
+ BEGIN  
+ SELECT COUNT(intMicroLikeShareId)TotalDownload from Scrl_MicrolTagLikeShareTbl WHERE intDocId=@intDocId AND strRepLiShStatus='FDL'  
+ END  
+  
+ ELSE IF @FlagNo=8  
+ BEGIN  
+ SELECT TOP 4 intCaseId,strCaseTitle,substring(strDescription,0,100) strDescription,strPartyNames Author,strJudgeNames Publisher,  
+ CONVERT(VARCHAR(12),Scrl_MicrolTagLikeShareTbl.dtAddedOn,106) AddedOn   
+ FROM Scrl_CaseTbl  
+ LEFT JOIN Scrl_MicrolTagLikeShareTbl ON Scrl_MicrolTagLikeShareTbl.intDocId=Scrl_CaseTbl.intCaseId  
+ WHERE strRepLiShStatus='FDL' AND Scrl_MicrolTagLikeShareTbl.intAddedBy=@intAddedBy  
+ ORDER BY Scrl_MicrolTagLikeShareTbl.dtAddedOn DESC  
+END  
+  
+ ELSE IF @FlagNo=9  
+ BEGIN  
+ SELECT intCaseId,strCaseTitle,substring(strDescription,0,100) strDescription,strPartyNames Author,strJudgeNames Publisher,  
+ CONVERT(VARCHAR(12),Scrl_MicrolTagLikeShareTbl.dtAddedOn,106) AddedOn   
+ FROM Scrl_CaseTbl  
+ LEFT JOIN Scrl_MicrolTagLikeShareTbl ON Scrl_MicrolTagLikeShareTbl.intDocId=Scrl_CaseTbl.intCaseId  
+ WHERE strRepLiShStatus='FDL' AND Scrl_MicrolTagLikeShareTbl.intAddedBy=@intAddedBy  
+ ORDER BY Scrl_MicrolTagLikeShareTbl.dtAddedOn DESC  
+END  
+  
+ELSE IF @FlagNo=10  
+ BEGIN  
+   
+ IF NOT EXISTS(SELECT * FROM Scrl_FavouriteDocumentsTbl WHERE intCaseId=@intDocId AND intAddedBy=@intAddedBy)  
+  BEGIN  
+   INSERT INTO Scrl_FavouriteDocumentsTbl  (intCaseId, dtAddedOn, intAddedBy,  strIpAddress)   
+   VALUES (@intDocId,GetDate(),@intAddedBy,@strIpAddress)  
+   DECLARE @inNewtintFavouriteId INT  
+   SET @inNewtintFavouriteId = @@IDENTITY;   
+   SELECT @inNewtintFavouriteId;  
+  END  
+ ELSE  
+  BEGIN  
+   SET @inNewtintFavouriteId = 0;   
+   SELECT @inNewtintFavouriteId;  
+  END  
+END  
+  
+ELSE IF @FlagNo=11  
+ BEGIN  
+    SELECT   *    FROM  
+ (  
+    SELECT COUNT(*) OVER()  AS Maxcount ,ROW_NUMBER() OVER (ORDER BY Scrl_FavouriteDocumentsTbl.dtAddedOn DESC ) AS RowNumber,  
+  Scrl_CaseTbl.intCaseId,strCaseTitle,substring(strDescription,0,50) strDescription,  
+ CONVERT(VARCHAR(12),Scrl_FavouriteDocumentsTbl.dtAddedOn,106) AddedOn, Eq_Citations,intYear,strJurisdiction,strPartyNames,strJudgeNames   
+ FROM Scrl_CaseTbl  
+ LEFT JOIN Scrl_FavouriteDocumentsTbl ON Scrl_FavouriteDocumentsTbl.intCaseId=Scrl_CaseTbl.intCaseId  
+ WHERE Scrl_FavouriteDocumentsTbl.intAddedBy=@intAddedBy  
+    )AS T  WHERE RowNumber > @LowerBand AND RowNumber < @UpperBand    
+  
+END  
+  
+ ELSE IF @FlagNo=12  
+ BEGIN  
+ SELECT COUNT(intFavouriteId)TotalFav from Scrl_FavouriteDocumentsTbl WHERE intCaseId=@intDocId  
+ END  
+  
+ ELSE IF @FlagNo=13  
+ BEGIN  
+ SELECT intFavouriteId from Scrl_FavouriteDocumentsTbl WHERE intCaseId=@intDocId AND intAddedBy=@intAddedBy  
+ END  
+  
+ ELSE IF @FlagNo=14  
+ BEGIN  
+   
+ IF NOT EXISTS(SELECT * FROM Scrl_FavouriteDocumentsTbl WHERE intCaseId=@intDocId AND intAddedBy=@intAddedBy)  
+  BEGIN  
+   INSERT INTO Scrl_FavouriteDocumentsTbl  (intCaseId, dtAddedOn, intAddedBy,  strIpAddress)   
+   VALUES (@intDocId,GetDate(),@intAddedBy,@strIpAddress)  
+   DECLARE @inNewtintFavouriteIds INT  
+   SET @inNewtintFavouriteIds = @@IDENTITY;   
+   SELECT @inNewtintFavouriteIds;  
+  END  
+ ELSE  
+  BEGIN  
+   DELETE FROM Scrl_FavouriteDocumentsTbl WHERE intCaseId=@intDocId AND intAddedBy=@intAddedBy     
+   SET @inNewtintFavouriteIds = 0;   
+   SELECT @inNewtintFavouriteIds;  
+  END  
+END  
+  
+ ELSE IF @FlagNo=15  
+  BEGIN  
+   INSERT INTO Scrl_FavouriteDocumentsHistoryTbl (intCaseId,strCaseTitle,strDescription,dtBookMarkDate, dtAddedOn, intAddedBy,  strIpAddress)   
+   VALUES (@intDocId,@strCaseTitle,@strDescription,@dtDate,GetDate(),@intAddedBy,@strIpAddress)  
+   DELETE FROM Scrl_FavouriteDocumentsTbl WHERE intCaseId=@intDocId AND intAddedBy=@intAddedBy     
+  END  
+  
+ELSE IF @FlagNo=16  
+  BEGIN  
+   INSERT INTO Scrl_DownloadedDocumentsHistoryTbl (intCaseId,strCaseTitle,strDescription,Author,Publisher,dtDownloadedDate, dtAddedOn, intAddedBy,  strIpAddress)   
+   VALUES (@intDocId,@strCaseTitle,@strDescription,@Author,@Publisher,@dtDate,GetDate(),@intAddedBy,@strIpAddress)  
+   DELETE FROM Scrl_MicrolTagLikeShareTbl WHERE strRepLiShStatus='FDL' AND intDocId=@intDocId AND intAddedBy=@intAddedBy     
+  END  
+  
+ELSE IF @FlagNo=17  
+ BEGIN  
+ SELECT COUNT(intMicroLikeShareId)TotalDownload from Scrl_MicrolTagLikeShareTbl WHERE intAddedBy=@intAddedBy AND strRepLiShStatus='FDL'  
+ END  
+ ELSE IF @FlagNo=18  
+ BEGIN  
+ SELECT intMicroLikeShareId,  
+ (SELECT vchrFirstName +' '+ISNULL(vchrLastName,'') FROM scrl_RegistrationTbl WHERE intRegistrationId=Scrl_MicrolTagLikeShareTbl.intAddedBy)UserName  
+ from Scrl_MicrolTagLikeShareTbl WHERE intDocId=@intDocId AND strRepLiShStatus='LI'  
+ order by intMicroLikeShareId desc  
+ END  
+   else  if @FlagNo=19
+  begin
+  IF  EXISTS (SELECT 1 FROM scrl_CaseMicroTagLikes WHERE id=@intDocId AND  source_user_id=@intAddedBy AND destination_user_id=@intRegistrationId)  
+    BEGIN  
+  delete from scrl_CaseMicroTagLikes where id=@intDocId  AND  source_user_id=@intAddedBy AND destination_user_id=@intRegistrationId
+    END  
+	ELSE  
+ BEGIN 
+ insert into scrl_CaseMicroTagLikes(id, source_user_id, destination_user_id) values(@intDocId, @intAddedBy,@intRegistrationId)
+ END 
+  end 
+END  
+  
+  

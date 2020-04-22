@@ -1,0 +1,10 @@
+/Bin/
+/CaseDocument/
+/UploadedPhoto/
+/CroppedPhoto/
+/VideoFiles/
+/UploadDocument/
+/Articles/*.*
+/Downloads/*.*
+/SubDoc/*.*
+/tmp/

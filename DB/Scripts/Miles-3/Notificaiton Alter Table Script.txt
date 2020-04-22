@@ -1,0 +1,17 @@
+Alter table scrl_RegistrationTbl
+	 Add notificationtimestamp datetime
+      
+	  update scrl_RegistrationTbl set notificationtimestamp = getdate()
+
+USE [Skorkel_Dev]
+GO
+
+ALTER TABLE [dbo].[scrl_RegistrationTbl] DROP CONSTRAINT [DF_scrl_RegistrationTbl]
+GO
+
+
+USE [Skorkel_Dev]
+GO
+
+ALTER TABLE [dbo].[scrl_RegistrationTbl] ADD  CONSTRAINT [DF_scrl_RegistrationTbl]  DEFAULT (dateadd(month,(-1),getdate())) FOR [notificationtimestamp]
+GO

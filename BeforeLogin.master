@@ -1,0 +1,96 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="BeforeLogin.master.cs"
+    Inherits="SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=10" />
+    <title>:: Skorkel ::</title>
+    <link href="Styles/style.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/jquery.ennui.contentslider.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/jquery.css" rel="stylesheet" type="text/css" />
+    <%--<link href="Styles/demo.css" rel="stylesheet" type="text/css" />--%>
+    <script type="text/javascript" language="javascript" src="js/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="js/customInput.jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="js/jquery.carouFredSel-6.2.1-packed.js"></script>
+    <!-- optionally include helper plugins -->
+    <script type="text/javascript" language="javascript" src="js/jquery.mousewheel.min.js"></script>
+    <script type="text/javascript" language="javascript" src="js/jquery.touchSwipe.min.js"></script>
+    <script type="text/javascript" language="javascript" src="js/jquery.transit.min.js"></script>
+    <script type="text/javascript" language="javascript" src="js/jquery.ba-throttle-debounce.min.js"></script>
+    <!-- fire plugin onDocumentReady -->
+    <asp:ContentPlaceHolder ID="headBefore" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <asp:ScriptManager ID="scriptup" runat="server">
+    </asp:ScriptManager>
+    <!--header starts-->
+    <div class="outterContainer home">
+
+
+         <!-- <div class="blue_bg">
+            <div class="container">
+               <div class="topContainer" style="height: 52px;">
+                    <div class="logo">
+                        <a href="<%=ResolveUrl("landing.aspx")%>">
+                            <img src="images/logo-inner.png" alt="Skorkel" /> <span style="    margin-top: -39px;"> SKORKEL </span>
+                        </a>
+                    </div>
+                
+                 
+                   header ends
+                </div> 
+            </div>      
+        </div> -->
+        <div class="container">
+<!--             <div class="logo">
+                <a href="Landing.aspx" title="Go to login page.">
+                    <img src="images/logo.png" alt="Skorkel" /></a></div> -->
+            <div class="navigation">
+            </div>
+            <div class="searchBox">
+                <div class="searchBtn">
+                </div>
+                <div class="search">
+                </div>
+            </div>
+            <!--header ends-->
+            <div class="cls">
+            </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolderBefore" runat="server">
+            </asp:ContentPlaceHolder>
+            <div class="cls">
+            </div>
+        </div>
+    </div>
+    <div class="cls">
+    </div>
+        <!--footer starts
+            <div class="outterContainer" id="footer">
+               <div class="container position_relative">
+                      <div class="footer_left">
+                          <ul>
+                            <li><a href="AboutUs.aspx">About Us</a></li>
+                          <li><a href="team.aspx">Skorkel Team</a></li>
+                            <li><a href="PrivacyPolicy.aspx">Privacy Policy</a></li>
+                            <li><a href="TermsAndConditions.aspx">Terms of Service</a></li>
+                           <li><a href="contactus.aspx">Contact Us</a></li>
+                           
+                          </ul>
+                          <span class="">&copy; Skorkel.com</span>
+                      </div>
+
+                    <div class="footer_right">
+                       <span><i class="fa fa-facebook"></i></span>
+                       <span><i class="fa fa-twitter"></i></span>
+                       <span><i class="fa fa-linkedin"></i></span>
+                    </div>
+                </div> 
+             
+            </div>-->
+            <!--footer ends-->
+    </form>
+</body>

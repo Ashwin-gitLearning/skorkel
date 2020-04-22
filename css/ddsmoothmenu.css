@@ -1,0 +1,134 @@
+
+.ddsmoothmenu ul{
+z-index:100;
+margin: 0;
+padding: 0;
+list-style-type: none;
+margin-top: 20px;
+border-radius: 0px;
+}
+
+/*Top level list items*/
+.ddsmoothmenu ul li{
+position: relative;
+display: inline;
+float: left;
+color:#000;
+background:none;
+}
+
+/*Top level menu link items style*/
+.navigation .ddsmoothmenu ul li a{
+display: block;
+color:#000;
+float:left;
+text-decoration: none !important;
+margin-right:0px;
+border:0px; 
+font-size:16px;
+}
+.ddsmoothmenu ul li a img{        margin-right: 22px;
+
+    width: 15px;
+    margin-bottom: 14px;
+    margin-top: 5px;
+   
+}
+* html .ddsmoothmenu ul li a{ /*IE6 hack to get sub menu links to behave correctly*/
+display: inline-block;
+}
+
+.ddsmoothmenu ul li a:link, .ddsmoothmenu ul li a:visited{
+color: #fff;
+padding:10px 10px;
+text-decoration:none !important;
+}
+
+.ddsmoothmenu ul li li a:link, .ddsmoothmenu ul li li a:visited{
+color: #4f4f4f;
+padding:10px;
+text-decoration:none !important; font-size:15px;
+}
+ddsmoothmenu ul li li a:hover,.ddsmoothmenu ul li li a:hover{
+color: #01579b !important;
+padding:10px;
+text-decoration:none !important;
+}
+
+.ddsmoothmenu ul li a.selected{ /*CSS class that's dynamically added to the currently active menu items' LI A element*/
+color: #fff;
+}
+
+.ddsmoothmenu ul li a:hover{
+color: #fff;
+}
+	
+/*1st sub level menu*/
+.ddsmoothmenu ul li ul{
+position: absolute;
+left: 0;
+display: none; /*collapse all sub menus to begin with*/
+visibility: hidden;
+}
+
+/*Sub level menu list items (undo style from Top level List Items)*/
+.navigation .ddsmoothmenu ul li ul li a:link{text-transform:none; padding:10px; border:0px}
+
+.ddsmoothmenu ul li ul li{
+display: list-item; margin:10px 0;
+float: none;
+background:#fff;
+}
+.navigation .ddsmoothmenu ul li ul li a:hover{
+display: list-item;
+float: none;
+background:url(images/menuBg-over.jpg) repeat-x left bottom #fff;text-transform:none
+}
+
+/*All subsequent sub menu levels vertical offset after 1st level sub menu */
+.ddsmoothmenu ul li ul li ul{
+top: 0;
+}
+
+/* Sub level menu links style */
+.ddsmoothmenu ul li ul li a{
+width: 250px; /*width of sub menus*/
+padding: 5px;
+margin: 0;
+border-top-width: 0;
+border-bottom: 0px solid gray;
+margin-right:2px;
+}
+
+/* Holly Hack for IE \*/
+* html .ddsmoothmenu{height: 1%;} /*Holly Hack for IE7 and below*/
+
+
+/* ######### CSS classes applied to down and right arrow images  ######### */
+
+.downarrowclass{
+position: absolute;
+top: 10px;
+right: 0px;
+}
+
+.rightarrowclass{
+position: absolute;
+top: 6px;
+right: 5px;
+}
+
+/* ######### CSS for shadow added to sub menus  ######### */
+
+.ddshadow{ /*shadow for NON CSS3 capable browsers*/
+position: absolute;
+left: 0;
+top: 0;
+width: 0;
+height: 0;
+background: silver;
+}
+
+.toplevelshadow{ /*shadow opacity for NON CSS3 capable browsers. Doesn't work in IE*/
+
+}

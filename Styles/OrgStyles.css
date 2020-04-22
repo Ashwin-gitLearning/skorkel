@@ -1,0 +1,63 @@
+.button {
+  background-image: url ('/image/btn.png') no-repeat;
+  cursor:pointer;
+  }
+  
+.bodytext{
+    font-family:"Calibri", Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#6d6e71;	
+  }
+  
+.bodytext-heading{
+    font-family:"Calibri", Arial, Helvetica, sans-serif;
+	font-size:20px;
+	color:#6d6e71;
+	font-weight:bold;
+  }
+
+.white-text{
+    font-family:Arial, Helvetica, sans-serif;
+	font-size:12px;
+	color:#FFFFFF;	
+  }
+  
+.title-text{
+    font-family:"Calibri", Arial, Helvetica, sans-serif;
+	font-size:20px;
+	color:#FFFFFF;	
+  }  
+    
+a.menu-link, a.menu-link:visited{
+  	font-size:14px;
+	font-family:"Calibri", Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	text-decoration:none;
+}
+
+a.menu-link:hover{
+    font-size:14px;
+  	color: #00b6bd;
+	text-decoration:none;
+}  
+
+a.footer-link, a.footer-link:visited{
+  	font-size:14px;
+	font-family:"Calibri", Arial, Helvetica, sans-serif;
+	color: #FFFFFF;
+	text-decoration:none;
+}
+
+a.footer-link:hover{
+    font-size:14px;
+  	color: #66FFFF;
+	text-decoration:underline;
+}
+
+ 
+.Sub-heading-1{
+   font-family:Arial, Helvetica, sans-serif;
+   font-size:18px;
+   color:#FF3300;
+  
+}
